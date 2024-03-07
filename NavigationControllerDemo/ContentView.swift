@@ -9,22 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    TabView {
-      HomePage()
-        .withNavigation()
-        .tag(0)
-        .tabItem { Label("A", systemImage: "a.circle") }
-
-      HomePage()
-        .withNavigation()
-        .tag(1)
-        .tabItem { Label("B", systemImage: "b.circle") }
-
-      HomePage()
-        .withNavigation()
-        .tag(2)
-        .tabItem { Label("C", systemImage: "c.circle") }
-    }
+    HomePage()
+      .withNavigation()
   }
 }
 
