@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NavigationID: Identifiable, Hashable {
-  var id: UUID = .init()
+  let id: UUID = .init()
 }
 
 @Observable class NavigationController {
