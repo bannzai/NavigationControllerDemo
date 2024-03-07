@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RouteID: Identifiable, Hashable {
+struct NavigationID: Identifiable, Hashable {
   var id: UUID = .init()
 }
 
@@ -8,9 +8,9 @@ struct RouteID: Identifiable, Hashable {
   var path: NavigationPath = .init()
 
   @ObservationIgnored 
-  fileprivate var destinations: [RouteID: () -> any View] = [:]
+  fileprivate var destinations: [NavigationID: () -> any View] = [:]
 
-  func push(id: RouteID = .init(), @ViewBuilder destination: @escaping () -> some View)  {
+  func push(id: NavigationID = .init(), @ViewBuilder destination: @escaping () -> some View)  {
     destinations[id] = destination
     path.append(id)
   }
@@ -26,7 +26,7 @@ struct WithNavigationModifier: ViewModifier {
   func body(content: Content) -> some View {
     NavigationStack(path: $navigationController.path) {
       content
-        .navigationDestination(for: RouteID.self) { routeID in
+        .navigationDestination(for: NavigationID.self) { routeID in
           if let destination = navigationController.destinations[routeID] {
             AnyView(destination().id(routeID))
           }
