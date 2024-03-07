@@ -8,7 +8,7 @@ struct NavigationID: Identifiable, Hashable {
   var path: NavigationPath = .init()
 
   @ObservationIgnored 
-  private(set) var destinations: [NavigationID: () -> any View] = [:]
+  fileprivate var destinations: [NavigationID: () -> any View] = [:]
 
   func push(id: NavigationID = .init(), @ViewBuilder destination: @escaping () -> some View)  {
     destinations[id] = destination
