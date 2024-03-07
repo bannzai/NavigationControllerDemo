@@ -18,6 +18,12 @@ struct NavigationID: Identifiable, Hashable {
   func pop()  {
     path.removeLast()
   }
+
+  func popToRoot()  {
+    while !path.isEmpty {
+      path.removeLast()
+    }
+  }
 }
 
 struct WithNavigationModifier: ViewModifier {

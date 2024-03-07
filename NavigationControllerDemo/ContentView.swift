@@ -30,21 +30,15 @@ struct HomePage: View {
         print("NavigationController.path changed: \(newValue), count: \(newValue.count)")
       }
     }
+    .navigationTitle("Home Page")
   }
 }
 
 struct SecondPage: View {
   @Environment(NavigationController.self) var navigationController
-  @State var counter = 0
-  
+
   var body: some View {
     VStack {
-      Button {
-        counter += 1
-      } label: {
-        Text("Count up \(counter)")
-      }
-
       Button {
         navigationController.pop()
       } label: {
@@ -59,12 +53,14 @@ struct SecondPage: View {
         Text("Push")
       }
     }
+    .navigationTitle("Second Page")
   }
 }
 
 struct ThirdPage: View {
+  @Environment(\.dismiss) var dismiss
   @Environment(NavigationController.self) var navigationController
-  
+
   @State var sheetIsPresented = false
   @State var fullScreenCoverIsPresented = false
 
@@ -91,11 +87,21 @@ struct ThirdPage: View {
       } label: {
         Text("Full screen cover")
       }
-      .sheet(isPresented: $fullScreenCoverIsPresented, content: {
+      .fullScreenCover(isPresented: $fullScreenCoverIsPresented, content: {
         HomePage()
           .withNavigation()
+          .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+              Button {
+                dismiss()
+              } label: {
+                Image(systemName: "xmark")
+              }
+            }
+          }
       })
     }
+    .navigationTitle("Third Page")
   }
 }
 
