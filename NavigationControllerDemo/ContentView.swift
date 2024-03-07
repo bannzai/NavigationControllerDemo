@@ -71,6 +71,12 @@ struct ThirdPage: View {
       } label: {
         Text("Pop")
       }
+
+      Button {
+        navigationController.popToRoot()
+      } label: {
+        Text("Pop to root")
+      }
       
       Button {
         sheetIsPresented = true
