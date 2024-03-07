@@ -4,7 +4,7 @@ struct NavigationID: Identifiable, Hashable {
   let id: UUID = .init()
 }
 
-@Observable class NavigationController {
+@Observable final class NavigationController {
   var path: NavigationPath = .init()
 
   @ObservationIgnored 
@@ -28,7 +28,7 @@ struct WithNavigationModifier: ViewModifier {
       content
         .navigationDestination(for: NavigationID.self) { routeID in
           if let destination = navigationController.destinations[routeID] {
-            AnyView(destination().id(routeID))
+            AnyView(destination())
           }
         }
     }
