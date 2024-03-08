@@ -15,7 +15,7 @@ struct ContentView: View {
 }
 
 struct HomePage: View {
-  @Environment(NavigationController.self) var navigationController
+  @EnvironmentObject var navigationController: NavigationController
 
   var body: some View {
     VStack {
@@ -35,7 +35,7 @@ struct HomePage: View {
 }
 
 struct SecondPage: View {
-  @Environment(NavigationController.self) var navigationController
+  @EnvironmentObject var navigationController: NavigationController
 
   var body: some View {
     VStack {
@@ -59,7 +59,7 @@ struct SecondPage: View {
 
 struct ThirdPage: View {
   @Environment(\.dismiss) var dismiss
-  @Environment(NavigationController.self) var navigationController
+  @EnvironmentObject var navigationController: NavigationController
 
   @State var sheetIsPresented = false
   @State var fullScreenCoverIsPresented = false

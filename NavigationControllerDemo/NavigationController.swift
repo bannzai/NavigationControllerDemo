@@ -4,10 +4,9 @@ struct NavigationID: Identifiable, Hashable {
   let id: UUID = .init()
 }
 
-@Observable final class NavigationController {
-  var path: NavigationPath = .init()
+final class NavigationController: ObservableObject {
+  @Published var path: NavigationPath = .init()
 
-  @ObservationIgnored 
   fileprivate var destinations: [NavigationID: () -> any View] = [:]
 
   func push(id: NavigationID = .init(), @ViewBuilder destination: @escaping () -> some View)  {
@@ -27,7 +26,7 @@ struct NavigationID: Identifiable, Hashable {
 }
 
 struct WithNavigationModifier: ViewModifier {
-  @Bindable var navigationController = NavigationController()
+  @StateObject var navigationController = NavigationController()
 
   func body(content: Content) -> some View {
     NavigationStack(path: $navigationController.path) {
@@ -38,7 +37,7 @@ struct WithNavigationModifier: ViewModifier {
           }
         }
     }
-    .environment(navigationController)
+    .environmentObject(navigationController)
   }
 }
 
