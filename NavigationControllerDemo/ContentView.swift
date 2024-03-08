@@ -8,63 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State var path = NavigationPath()
-
   var body: some View {
-    NavigationStack(path: $path) {
-      StandardNavigationDemo()
-    }
-    .onChange(of: path) { oldValue, newValue in
-      print("path changed. count: \(path.count)")
-    }
-  }
-}
-
-enum Route: Hashable {
-  case item(id: Int)
-  case product(id: Int)
-}
-
-struct StandardNavigationDemo: View {
-  var body: some View {
-    ForEach(0...10, id: \.self) { index in
-      if index % 2 == 0 {
-        NavigationLink("index:\(index)", value: Route.item(id: index))
-      } else {
-        NavigationLink("index:\(index)", value: Route.product(id: index))
-      }
-    }
-    .navigationDestination(for: Route.self) { route in
-      switch route {
-      case .item(let id):
-        ItemPage(id: id)
-      case .product(id: let id):
-        ProductPage(id: id)
-      }
-    }
-  }
-}
-
-struct ItemPage: View {
-  let id: Int
-
-  var body: some View {
-    Text("ItemPage \(id)")
-  }
-}
-
-struct ProductPage: View {
-  let id: Int
-
-  var body: some View {
-    Text("ProductPage \(id)")
+    HomePage()
+      .withNavigation()
   }
 }
 
 struct HomePage: View {
   @Environment(NavigationController.self) var navigationController
-
-  @State var secondPageIsPresented = false
 
   var body: some View {
     VStack {
@@ -80,9 +31,6 @@ struct HomePage: View {
       }
     }
     .navigationTitle("Home Page")
-    .navigationDestination(isPresented: $secondPageIsPresented) {
-      SecondPage()
-    }
   }
 }
 
